@@ -4,40 +4,28 @@ namespace ScanUtil;
 
 public static class Program
 {
+    private static string _path = "";
+    private static int _jsCounter = 0;
+    private static int _rmRfDetectsCounter = 0;
+    private static int _runDllDetectsCounter = 0;
+
     public static void Main(string[] args)
     {
-        var stopWatch = new Stopwatch();
-        stopWatch.Start();
+        var stopWatch = Stopwatch.StartNew();
+        _path = args[0];
 
-        var files = Directory.GetFiles(args[0]);
-
-        ushort jsCounter = 0;
-        ushort rmRfDetectsCounter = 0;
-        ushort runDllDetectsCounter = 0;
-        ushort errorsCounter = 0;
+        var files = Directory.GetFiles(_path);
+        var errorsCounter = 0;
 
         Parallel.ForEach(files, file =>
         {
             try
             {
-                var lines = File.ReadLines(file);
-
-                switch (lines)
-                {
-                    case { } a when file.Contains(".js") && a.Contains("<script>evil_script()</script>"):
-                        jsCounter++;
-                        break;
-                    case { } b when b.Contains($"rm -rf {args[0]}"):
-                        rmRfDetectsCounter++;
-                        break;
-                    case { } c when c.Contains("Rundll32 sus.dll SusEntry"):
-                        runDllDetectsCounter++;
-                        break;
-                }
+                FindSuspiciousFile(file);
             }
             catch (Exception)
             {
-                errorsCounter++;
+                Interlocked.Increment(ref errorsCounter);
             }
         });
 
@@ -45,14 +33,35 @@ public static class Program
 
         ScanModel scanModel = new()
         {
-            ProcessedFiles = (ushort) files.Length,
-            JSDetects = jsCounter,
-            RmRfDetects = rmRfDetectsCounter,
-            RunDllDetects = runDllDetectsCounter,
+            ProcessedFiles = files.Length,
+            JSDetects = _jsCounter,
+            RmRfDetects = _rmRfDetectsCounter,
+            RunDllDetects = _runDllDetectsCounter,
             Errors = errorsCounter,
             ExecutionTime = stopWatch.Elapsed
         };
 
         Console.WriteLine(scanModel.ToString());
+    }
+
+    private static void FindSuspiciousFile(string file)
+    {
+        string? line;
+        using var reader = File.OpenText(file);
+        while ((line = reader.ReadLine()) != null)
+        {
+            var increment = line switch
+            {
+                var x when file.Contains(".js") && x.Contains("<script>evil_script()</script>") => Interlocked.Increment(ref _jsCounter),
+                var x when x.Contains($"rm -rf {_path}") => Interlocked.Increment(ref _rmRfDetectsCounter),
+                var x when x.Contains("Rundll32 sus.dll SusEntry") => Interlocked.Increment(ref _runDllDetectsCounter),
+                _ => -1
+            };
+
+            if (increment != -1)
+            {
+                break;
+            }
+        }
     }
 }
