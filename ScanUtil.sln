@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanUtil", "ScanUtil\ScanUt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanUtil.Models", "ScanUtil.Models\ScanUtil.Models.csproj", "{621C20C9-8416-4057-A23D-B32048592BEC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceApplication", "ServiceApplication\ServiceApplication.csproj", "{A4A77393-FA6A-4334-8B35-C9C099D60012}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{621C20C9-8416-4057-A23D-B32048592BEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{621C20C9-8416-4057-A23D-B32048592BEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{621C20C9-8416-4057-A23D-B32048592BEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4A77393-FA6A-4334-8B35-C9C099D60012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4A77393-FA6A-4334-8B35-C9C099D60012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4A77393-FA6A-4334-8B35-C9C099D60012}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4A77393-FA6A-4334-8B35-C9C099D60012}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
