@@ -12,8 +12,13 @@ public static class Program
 
     public static void Main(string[] args)
     {
+        Console.WriteLine(ScanDirectory(args[0]).ToString());
+    }
+
+    public static ScanModel ScanDirectory(string path)
+    {
         var stopWatch = Stopwatch.StartNew();
-        _path = args[0];
+        _path = path;
 
         var files = Directory.GetFiles(_path);
         var errorsCounter = 0;
@@ -32,7 +37,7 @@ public static class Program
 
         stopWatch.Stop();
 
-        ScanModel scanModel = new()
+        return new ScanModel
         {
             ProcessedFiles = files.Length,
             JSDetects = _jsCounter,
@@ -41,10 +46,7 @@ public static class Program
             Errors = errorsCounter,
             ExecutionTime = stopWatch.Elapsed
         };
-
-        Console.WriteLine(scanModel.ToString());
     }
-
     
     /// <summary>
     /// Поиск в файле подозрительной строки.
