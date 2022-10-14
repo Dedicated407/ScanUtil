@@ -2,9 +2,9 @@
 
 public abstract class BaseModel
 {
-    public Guid Id { get; private set; }
+    public Guid Id { get; set; }
 
-    public DateTimeOffset Created { get; private set; }
+    public DateTimeOffset Created { get; set; }
 
     protected BaseModel()
     {
