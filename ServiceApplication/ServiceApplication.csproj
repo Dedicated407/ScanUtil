@@ -16,4 +16,9 @@
         <DependentUpon>appsettings.json</DependentUpon>
       </Content>
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ScanUtil.Models\ScanUtil.Models.csproj" />
+      <ProjectReference Include="..\ScanUtil\ScanUtil.csproj" />
+    </ItemGroup>
 </Project>
