@@ -1,6 +1,8 @@
-﻿namespace ScanUtil;
+﻿using ScanUtil.Models.Base;
 
-public class ScanModel
+namespace ScanUtil.Models;
+
+public class ScanModel : BaseModel
 {
     public int ProcessedFiles { get; init; }
     public int JSDetects { get; init; }
@@ -8,7 +10,7 @@ public class ScanModel
     public int RunDllDetects { get; init; }
     public int Errors { get; init; }
     public TimeSpan ExecutionTime { get; init; }
-
+    
     public override string ToString() =>
         "====== Scan result ======\n" +
         $"Processed files: {ProcessedFiles}\n" +

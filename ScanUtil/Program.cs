@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using ScanUtil.Models;
 
 namespace ScanUtil;
 
@@ -44,6 +45,11 @@ public static class Program
         Console.WriteLine(scanModel.ToString());
     }
 
+    
+    /// <summary>
+    /// Поиск в файле подозрительной строки.
+    /// </summary>
+    /// <param name="file">Файл в директории</param>
     private static void FindSuspiciousFile(string file)
     {
         string? line;
